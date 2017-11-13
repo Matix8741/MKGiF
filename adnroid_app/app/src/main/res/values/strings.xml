@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MKGiF</string>
     <string name="action_settings">Settings</string>
+    <string name="filmy">Filmy</string>
+    <string name="gry">Gry</string>
+    <string name="książki">książki</string>
 </resources>
