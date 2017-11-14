@@ -4,4 +4,15 @@
     <string name="filmy">Filmy</string>
     <string name="gry">Gry</string>
     <string name="książki">książki</string>
+    <string name="tytu">Tytuł:</string>
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 </resources>

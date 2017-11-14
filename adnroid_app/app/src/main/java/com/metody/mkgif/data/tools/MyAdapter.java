@@ -9,14 +9,11 @@ import android.widget.Toast;
 
 import com.metody.mkgif.R;
 
+import java.util.List;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private String[] mDataset;
-//    private final View.OnClickListener mOnClickListener = new MyOnClickListener(this);
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+    private List<DataItem> mDataset;
     static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
         TextView mTextView;
         ViewHolder(TextView v) {
             super(v);
@@ -24,7 +21,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
     static class ViewHolder2 extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
         TextView mTextView;
         ViewHolder2(TextView v) {
             super(v);
@@ -32,25 +28,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(String[] myDataset) {
+    public MyAdapter(List<DataItem> myDataset) {
         mDataset = myDataset;
     }
 
     @Override
     public int getItemViewType(int position) {
-        // Just as an example, return 0 or 2 depending on position
-        // Note that unlike in ListView adapters, types don't have to be contiguous
-        if(position < 3)
+        DataType itemType = mDataset.get(position).getDataTyp();
+        if(itemType.equals(DataType.Thema))
             return 0;
-        else
+        else if (itemType.equals(DataType.status))
             return  1;
+        else
+            return 2;
     }
-    // Create new views (invoked by the layout manager)
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
-        // create a new view
         TextView v = null;
         switch (viewType){
             case 0:
@@ -59,11 +53,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 break;
             case 1:
                 v = (TextView) LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.my_layout, parent, false);
+                        .inflate(R.layout.subsection_layout, parent, false);
                 break;
+            case 2:
+                v = (TextView) LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.my_layout, parent, false);
         }
-        // set the view's size, margins, paddings and layout parameters
-        //...
         final ViewHolder vh = new ViewHolder(v);
         assert v != null;
         v.setOnClickListener(new View.OnClickListener() {
@@ -72,24 +67,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //                int itemPosition = mRecyclerView.getChildLayoutPosition(view);
                 onBindViewHolder(vh, 0);
                 //                String item = mList.get(itemPosition);
-//                Toast.makeText(mContent, item, Toast.LENGTH_LONG).show();
             }
         });
         return vh;
     }
-
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
+        holder.mTextView.setText(mDataset.get(position).getContetn());
 
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 }
