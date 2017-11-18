@@ -2,6 +2,12 @@ package com.server.servlet.connection;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+
 
 
 /**
@@ -32,20 +40,26 @@ public class ConnectionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<String> filmy= selectAll();
+        
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		String message;
 		JSONObject json = new JSONObject();
-		json.put("name", "student");
+		/*json.put("name", "student");
 		JSONArray array = new JSONArray();
 		JSONObject item = new JSONObject();
 			item.put("information", "test");
 			item.put("id", 3);
 			item.put("name", "course1");
 			json.put("course", array);
-		array.add(item);
-
-
+		array.add(item);*/
+		//JSONArray tablica = new JSONArray();
+		//JSONObject item = new JSONObject();
+		for (int i = 0 ; i < filmy.size() ; i++)
+		{
+			json.put(i, filmy.get(i));
+		}
 		message = json.toString();
 
 		out.print(json);
@@ -59,5 +73,47 @@ public class ConnectionServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	private Connection connect() {
+        // SQLite connection string
+		Connection conn = null;
+		try {
+		Class.forName("org.sqlite.JDBC");
+		 String url = "jdbc:sqlite:Baza.db";
+        
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+		} catch (ClassNotFoundException ex) {
+	            ex.printStackTrace();
+		}
+        return conn;
+    }
+ 
+    
+    /**
+     * select all rows in the warehouses table
+     */
+    public ArrayList<String> selectAll(){
+    	ArrayList<String> tablica = new ArrayList<String>();
+    	String sql = "SELECT tytul FROM Filmy";
+        
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            while (rs.next()) {
+            	tablica.add(rs.getString("tytul"));
+                System.out.println(/*rs.getInt("id") +  "\t" +*/ 
+                                   rs.getString("tytul"));// + "\t" +
+                                   //rs.getDouble("capacity"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+		return tablica;
+    }
 
 }
