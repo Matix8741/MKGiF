@@ -81,7 +81,7 @@ public class ConnectionServlet extends HttpServlet {
 		Connection conn = null;
 		try {
 		Class.forName("org.sqlite.JDBC");
-		 String url = "jdbc:sqlite:\\Baza.db";
+		 String url = "jdbc:sqlite:" + this.getClass().getResource("//").getPath() + "Baza.db";
         
         try {
             conn = DriverManager.getConnection(url);
@@ -109,8 +109,8 @@ public class ConnectionServlet extends HttpServlet {
             // loop through the result set
             while (rs.next()) {
             	tablica.add(rs.getString("tytul"));
-                System.out.println(/*rs.getInt("id") +  "\t" +*/ 
-                                   rs.getString("tytul"));// + "\t" +
+                //System.out.println(/*rs.getInt("id") +  "\t" +*/ 
+                 //                  rs.getString("tytul"));// + "\t" +
                                    //rs.getDouble("capacity"));
             }
         } catch (SQLException e) {
@@ -118,11 +118,11 @@ public class ConnectionServlet extends HttpServlet {
         }
 		return tablica;
     }
-    public static void createNewDatabase(String fileName) {
+    public void createNewDatabase(String fileName) {
     	try {
 
     		Class.forName("org.sqlite.JDBC");
-        String url = "jdbc:sqlite:" + fileName;
+    		String url = "jdbc:sqlite:" + this.getClass().getResource("//").getPath() + "Testostateczny.db";
  
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
