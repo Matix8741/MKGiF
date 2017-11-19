@@ -53,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
         DataItem[] myDataset2 = new DataItem[]{new DataItem("Filmy", DataType.Thema),new DataItem("obejrzane", DataType.status),
-                new DataItem( "first", DataType.item), new DataItem( "do oglÄ…dniÄ™cia xd", DataType.status),
+                new DataItem( "first", DataType.item), new DataItem( "do ogl¹dniêcia xd", DataType.status),
                 new DataItem(  "second", DataType.item), new DataItem("Gry", DataType.Thema),
                 new DataItem("test how long can it be for now", DataType.item),
                 new DataItem("rak", DataType.status),
                 new DataItem("lol", DataType.item),
-                new DataItem("KsiÄ…Å¼ki", DataType.Thema),
+                new DataItem("Ksi¹¿ki", DataType.Thema),
                 new DataItem("Not see", DataType.item),
                 new DataItem("some more content",DataType.item)};
         myDataset.addAll(Arrays.asList(myDataset2));
