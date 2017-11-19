@@ -1,2 +1,2 @@
 # MKGiF
-Project for subject "Methods for developer software" 
+Project for subject "Methods for develop software" 
