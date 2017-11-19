@@ -5,6 +5,7 @@
     <string name="gry">Gry</string>
     <string name="książki">książki</string>
     <string name="tytu">Tytuł:</string>
+    <string name="Dodaj">Dodaj</string>
     <string-array name="planets_array">
         <item>Mercury</item>
         <item>Venus</item>

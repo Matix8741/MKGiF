@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, AddingActivity.class);
-                startActivityForResult(intent, Activity.RESULT_CANCELED);
+                startActivityForResult(intent, 0);
             }
         });
         // use a linear layout manager
@@ -121,6 +121,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("????", "!!!");
+        String s = data.getStringExtra("text");
+        Log.d("??", s);
     }
 
 }
