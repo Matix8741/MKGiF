@@ -7,13 +7,8 @@
     <string name="tytu">Tytu³:</string>
     <string name="Dodaj">Dodaj</string>
     <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>Gra</item>
+        <item>Książka</item>
+        <item>Film</item>
     </string-array>
 </resources>

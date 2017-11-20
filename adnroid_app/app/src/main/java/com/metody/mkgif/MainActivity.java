@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -108,12 +109,15 @@ public class MainActivity extends AppCompatActivity {
                     public void onCompleted(Exception e, JsonObject result) {
                         try {
                             JsonObject jsonObject = result.getAsJsonObject();
-                            JsonObject gry = (JsonObject) jsonObject.get("gry");
-                            JsonArray companyList = gry.getAsJsonArray("skonczone");
-                            Log.d(companyList.toString(), "heheh");
-                            for (int i = 0; i < companyList.size(); i++) {
-                                myDataset.add(new DataItem(((JsonObject) companyList.get(i)).get("tytul").getAsString(), DataType.item));
+                            for(int i = 0; i < 4; i++){
+                                myDataset.add(new DataItem(jsonObject.get(String.valueOf(i)).getAsString(), DataType.item));
                             }
+//                            JsonObject gry = (JsonObject) jsonObject.get("gry");
+//                            JsonArray companyList = gry.getAsJsonArray("skonczone");
+//                            Log.d(companyList.toString(), "heheh");
+//                            for (int i = 0; i < companyList.size(); i++) {
+//                                myDataset.add(new DataItem(((JsonObject) companyList.get(i)).get("tytul").getAsString(), DataType.item));
+//                            }
                             mAdapter.notifyDataSetChanged();
 
                         } catch (Exception ex) {
@@ -126,7 +130,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("????", "!!!");
         String s = data.getStringExtra("text");
-        Log.d("??", s);
+        String a = data.getStringExtra("type");
+        Log.d("??", s+a);
+        if(a.equals("Gra")){
+            myDataset.add(new DataItem(s, DataType.item));
+            mAdapter.notifyDataSetChanged();
+
+        }
     }
 
 }

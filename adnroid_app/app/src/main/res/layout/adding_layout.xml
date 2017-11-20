@@ -9,10 +9,10 @@
         android:orientation="vertical">
         <include layout="@layout/data_input"
             android:id="@+id/addText"/>
-        <!--<Spinner-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/spinner">-->
+        <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"/>
 
         <!--</Spinner>-->
         <!--<DatePicker-->
