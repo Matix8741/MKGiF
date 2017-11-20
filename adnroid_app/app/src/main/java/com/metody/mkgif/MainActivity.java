@@ -53,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
         DataItem[] myDataset2 = new DataItem[]{new DataItem("Filmy", DataType.Thema),new DataItem("obejrzane", DataType.status),
-                new DataItem( "first", DataType.item), new DataItem( "do ogl¹dniêcia xd", DataType.status),
+                new DataItem( "first", DataType.item), new DataItem( "do oglÂ¹dniÃªcia xd", DataType.status),
                 new DataItem(  "second", DataType.item), new DataItem("Gry", DataType.Thema),
                 new DataItem("test how long can it be for now", DataType.item),
                 new DataItem("rak", DataType.status),
                 new DataItem("lol", DataType.item),
-                new DataItem("Ksi¹¿ki", DataType.Thema),
+                new DataItem("KsiÂ¹Â¿ki", DataType.Thema),
                 new DataItem("Not see", DataType.item),
                 new DataItem("some more content",DataType.item)};
         myDataset.addAll(Arrays.asList(myDataset2));
@@ -88,16 +88,16 @@ public class MainActivity extends AppCompatActivity {
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //         Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
 //        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+    //noinspection SimplifiableIfStatement
 //        if (id == R.id.action_settings) {
 //            return true;
 //        }
 
-//        return super.onOptionsItemSelected(item);
+    //        return super.onOptionsItemSelected(item);
     public void fetchData() {
         Ion.with(context)
                 .load("http://192.168.0.18:8080/MKGiF_Server/ConnectionServlet")

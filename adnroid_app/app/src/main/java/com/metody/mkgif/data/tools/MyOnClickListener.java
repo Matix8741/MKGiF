@@ -1,10 +1,20 @@
 package com.metody.mkgif.data.tools;
 
-import android.content.DialogInterface;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
 
-/**
- * Created by Mateusz on 2017-11-13.
- */
+public class MyOnClickListener implements OnClickListener  {
 
-public class MyOnClickListener implements DialogInterface.OnClickListener {
+    private RecyclerView mRecyclerView;
+
+    public MyOnClickListener(RecyclerView mRecyclerView){
+        this.mRecyclerView = mRecyclerView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int itemPosition = mRecyclerView.getChildLayoutPosition(view);
+        }
 }

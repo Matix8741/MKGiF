@@ -10,22 +10,22 @@
         <include layout="@layout/data_input"
             android:id="@+id/addText"/>
         <!--<Spinner-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/spinner">-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/spinner">-->
 
         <!--</Spinner>-->
         <!--<DatePicker-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:datePickerMode="spinner">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:datePickerMode="spinner">-->
 
         <!--</DatePicker>-->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:text="@string/Dodaj"
-        android:id="@+id/addButton"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:text="@string/Dodaj"
+            android:id="@+id/addButton"/>
     </LinearLayout>
 </ScrollView>
