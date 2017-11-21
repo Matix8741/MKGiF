@@ -41,33 +41,33 @@ public class ConnectionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //createNewDatabase("test3.db");
-		ArrayList<String> filmy= selectAll();
-        
-		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
-		String message;
-		JSONObject json = new JSONObject();
-		/*json.put("name", "student");
-		JSONArray array = new JSONArray();
-		JSONObject item = new JSONObject();
-			item.put("information", "test");
-			item.put("id", 3);
-			item.put("name", "course1");
-			json.put("course", array);
-		array.add(item);
-		//JSONArray tablica = new JSONArray();
-		//JSONObject item = new JSONObject();
-		 * */
-		for (int i = 0 ; i < filmy.size() ; i++)
-		{
-			json.put(i, filmy.get(i));
-		}
-		message = json.toString();
-
-		out.print(json);
-		out.flush();
+//ArrayList<String> filmy= selectAll();
+//        
+//		response.setContentType("application/json");
+//		PrintWriter out = response.getWriter();
+//		String message;
+//		JSONObject json = new JSONObject();
+//		/*json.put("name", "student");
+//		JSONArray array = new JSONArray();
+//		JSONObject item = new JSONObject();
+//			item.put("information", "test");
+//			item.put("id", 3);
+//			item.put("name", "course1");
+//			json.put("course", array);
+//		array.add(item);
+//		//JSONArray tablica = new JSONArray();
+//		//JSONObject item = new JSONObject();
+//		 * */
+//		for (int i = 0 ; i < filmy.size() ; i++)
+//		{
+//			json.put(i, filmy.get(i));
+//		}
+//		message = json.toString();
+//
+//		out.print(json);
+//		out.flush();
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -118,25 +118,6 @@ public class ConnectionServlet extends HttpServlet {
         }
 		return tablica;
     }
-    public void createNewDatabase(String fileName) {
-    	try {
-
-    		Class.forName("org.sqlite.JDBC");
-    		String url = "jdbc:sqlite:" + this.getClass().getResource("//").getPath() + "Testostateczny.db";
  
-        try (Connection conn = DriverManager.getConnection(url)) {
-            if (conn != null) {
-                DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
-            }
- 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-	} catch (ClassNotFoundException ex) {
-        ex.printStackTrace();
-}
-    }
 
 }
