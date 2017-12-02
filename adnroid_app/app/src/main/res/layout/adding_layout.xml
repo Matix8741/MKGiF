@@ -53,7 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:text="@string/Dodaj"
+            android:text="@string/add"
+            android:textSize="30sp"
             android:id="@+id/addButton"/>
     </LinearLayout>
 </ScrollView>
