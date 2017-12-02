@@ -54,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
         DataItem[] myDataset2 = new DataItem[]{new DataItem("Filmy", DataType.Thema),new DataItem("obejrzane", DataType.status),
-                new DataItem( "first", DataType.item), new DataItem( "do ogl¹dniêcia xd", DataType.status),
+                new DataItem( "first", DataType.item), new DataItem( "do obejrzenia", DataType.status),
                 new DataItem(  "second", DataType.item), new DataItem("Gry", DataType.Thema),
                 new DataItem("test how long can it be for now", DataType.item),
-                new DataItem("rak", DataType.status),
+                new DataItem("obecnie grane", DataType.status),
                 new DataItem("lol", DataType.item),
-                new DataItem("Ksi¹¿ki", DataType.Thema),
+                new DataItem("Książki", DataType.Thema),
                 new DataItem("Not see", DataType.item),
                 new DataItem("some more content",DataType.item)};
         myDataset.addAll(Arrays.asList(myDataset2));
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     //        return super.onOptionsItemSelected(item);
     public void fetchData() {
         Ion.with(context)
-                .load("http://192.168.0.18:8080/MKGiF_Server/ConnectionServlet")
+                .load("http://172.16.18.44:8080/MkGiF/ConnectionSwervlet")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -109,8 +109,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onCompleted(Exception e, JsonObject result) {
                         try {
                             JsonObject jsonObject = result.getAsJsonObject();
-                            for(int i = 0; i < 4; i++){
-                                myDataset.add(new DataItem(jsonObject.get(String.valueOf(i)).getAsString(), DataType.item));
+                            JsonArray array = jsonObject.get("Filmy").getAsJsonArray();
+                            for(int i = 0; i < array.size(); i++){
+                                myDataset.add(new DataItem(array.get(i).getAsString(), DataType.item));
                             }
 //                            JsonObject gry = (JsonObject) jsonObject.get("gry");
 //                            JsonArray companyList = gry.getAsJsonArray("skonczone");

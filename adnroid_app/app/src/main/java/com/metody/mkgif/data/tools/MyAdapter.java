@@ -2,10 +2,9 @@ package com.metody.mkgif.data.tools;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.metody.mkgif.R;
 
@@ -18,6 +17,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         ViewHolder(TextView v) {
             super(v);
             mTextView = v;
+        }
+
+        ViewHolder(LinearLayout inflate) {
+            super(inflate);
+            mTextView = inflate.findViewById(R.id.itemText);
         }
     }
     static class ViewHolder2 extends RecyclerView.ViewHolder {
@@ -45,30 +49,33 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
-        TextView v = null;
+        TextView v;
+        ViewHolder vh = null;
         switch (viewType){
             case 0:
                 v = (TextView) LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.thema_layout, parent, false);
+                vh = new ViewHolder(v);
                 break;
             case 1:
                 v = (TextView) LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.subsection_layout, parent, false);
+                vh = new ViewHolder(v);
                 break;
             case 2:
-                v = (TextView) LayoutInflater.from(parent.getContext())
+                LinearLayout inflate = (LinearLayout) LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.my_layout, parent, false);
+                vh = new ViewHolder(inflate);
         }
-        final ViewHolder vh = new ViewHolder(v);
-        assert v != null;
-        v.setOnClickListener(new View.OnClickListener() {
+        //assert v != null;
+        /*v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                int itemPosition = mRecyclerView.getChildLayoutPosition(view);
                 onBindViewHolder(vh, 0);
                 //                String item = mList.get(itemPosition);
             }
-        });
+        });*/
         return vh;
     }
     @Override

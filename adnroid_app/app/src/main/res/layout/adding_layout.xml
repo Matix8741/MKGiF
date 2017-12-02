@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <include layout="@layout/data_input"
             android:id="@+id/addText"/>
@@ -13,14 +13,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"/>
-
-        <!--</Spinner>-->
-        <!--<DatePicker-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:datePickerMode="spinner">-->
-
-        <!--</DatePicker>-->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DateButton"
+            android:text="@string/data"
+            android:background="@color/colorPrimaryDark"
+            android:onClick="showDatePickerDialog" />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rating"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
