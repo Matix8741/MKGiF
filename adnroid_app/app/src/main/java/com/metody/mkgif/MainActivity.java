@@ -1,10 +1,8 @@
 package com.metody.mkgif;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +21,7 @@ import com.metody.mkgif.data.tools.MyAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,18 +52,20 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        DataItem[] myDataset2 = new DataItem[]{new DataItem("Filmy", DataType.Thema),new DataItem("obejrzane", DataType.status),
-                new DataItem( "first", DataType.item), new DataItem( "do obejrzenia", DataType.status),
-                new DataItem(  "second", DataType.item), new DataItem("Gry", DataType.Thema),
-                new DataItem("test how long can it be for now", DataType.item),
-                new DataItem("obecnie grane", DataType.status),
-                new DataItem("lol", DataType.item),
-                new DataItem("Książki", DataType.Thema),
-                new DataItem("Not see", DataType.item),
-                new DataItem("some more content",DataType.item)};
-        myDataset.addAll(Arrays.asList(myDataset2));
+        String[] themas = getResources().getStringArray(R.array.types);
+        String[] statuses = getResources().getStringArray(R.array.status);
+        ArrayList<DataItem> dataSet = new ArrayList<>();
+        for(String thema : themas){
+            DataItem itemThema = new DataItem(thema, DataType.Thema);
+            dataSet.add(itemThema);
+            for(String status : statuses){
+                DataItem item = new DataItem(status, DataType.status);
+                dataSet.add(item);
+            }
+        }
+        myDataset.addAll(dataSet);
         fetchData();
-        mAdapter = new MyAdapter(myDataset);
+        mAdapter = new MyAdapter(myDataset, this);
         mRecyclerView.setAdapter(mAdapter);}
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
@@ -129,15 +130,30 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("????", "!!!");
         String s = data.getStringExtra("text");
         String a = data.getStringExtra("type");
-        Log.d("??", s+a);
-        if(a.equals("Gra")){
-            myDataset.add(new DataItem(s, DataType.item));
-            mAdapter.notifyDataSetChanged();
-
+        String date = data.getStringExtra("date");
+        Float rating = data.getFloatExtra("rating", -1);
+        String status = data.getStringExtra("status");
+        DataItem item = new DataItem(s, DataType.item);
+        item.setDate(date);
+        item.setRating(rating);
+        Log.d(getThemaFromString(a), status);
+        int startIndex =myDataset.indexOf(new DataItem(getThemaFromString(a), DataType.Thema));
+        int endIndex = myDataset.size();
+        int index = myDataset.subList(startIndex, endIndex).indexOf(new DataItem(status, DataType.status))+1;
+        Log.d(String.valueOf(index), String.valueOf(startIndex));
+        Log.d("jak: ", myDataset.subList(startIndex, endIndex).get(0).getContent());
+        myDataset.add(index+startIndex,item);
+        mAdapter.notifyDataSetChanged();
+    }
+    String getThemaFromString(String source){
+        for(String thema : getResources().getStringArray(R.array.types)){
+            if(source.contains(thema)){
+                return thema;
+            }
         }
+        return "";
     }
 
 }

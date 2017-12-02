@@ -2,7 +2,6 @@ package com.metody.mkgif;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -12,18 +11,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewStub;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -39,16 +35,21 @@ public class AddingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.adding_layout);
         final Spinner spinner = findViewById(R.id.spinner);
+        final Spinner spinnerStataus = findViewById(R.id.spinnerStatus);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.planets_array, R.layout.spinner_layout);
+                R.array.types, R.layout.spinner_layout);
+
+        ArrayAdapter<CharSequence> adapterStatus = ArrayAdapter.createFromResource(this,
+                R.array.status, R.layout.spinner_layout);
 // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.dropdown_spinner_layout);
+        adapterStatus.setDropDownViewResource(R.layout.dropdown_spinner_layout);
         final ViewFlipper vf = findViewById(R.id.vf);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
+                switch (i) {
                     case 0:
                         vf.setDisplayedChild(0);
                         break;
@@ -60,7 +61,6 @@ public class AddingActivity extends AppCompatActivity {
                         break;
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -69,9 +69,12 @@ public class AddingActivity extends AppCompatActivity {
 // Apply the adapter to the spinner
         button =  findViewById(R.id.DateButton);
         Date currentTime = Calendar.getInstance().getTime();
-        button.setText(new SimpleDateFormat("dd-MM-yy").format(currentTime));
+        button.setText(new SimpleDateFormat("yy-MM-dd").format(currentTime));
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
+        spinnerStataus.setAdapter(adapterStatus);
+        spinnerStataus.setSelection(0);
+        final RatingBar ratingBar = findViewById(R.id.rating);
         Button addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +83,9 @@ public class AddingActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), AddingActivity.class);
                 intent.putExtra("text", textView.getText().toString());
                 intent.putExtra("type", (String) spinner.getSelectedItem());
+                intent.putExtra("date", button.getText());
+                intent.putExtra("rating", ratingBar.getRating());
+                intent.putExtra("status", (String) spinnerStataus.getSelectedItem());
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -124,7 +130,7 @@ public class AddingActivity extends AppCompatActivity {
             if(day<10){
             }
 
-            ((AddingActivity) getActivity()).button.setText(new SimpleDateFormat("dd-MM-yy").format(new Date(year,month,day+1)));
+            ((AddingActivity) getActivity()).button.setText(new SimpleDateFormat("yy-MM-dd").format(new Date(year,month,day+1)));
 
         }
     }

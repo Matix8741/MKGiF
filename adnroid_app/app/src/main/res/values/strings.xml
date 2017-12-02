@@ -6,10 +6,16 @@
     <string name="książki">ksi¹¿ki</string>
     <string name="Dodaj">Dodaj</string>
     <string name="login">Login:</string>
-    <string-array name="planets_array">
+    <string-array name="types">
         <item>Gra</item>
         <item>Książka</item>
         <item>Film</item>
+    </string-array>
+    <string-array name="status">
+        <item>W przyszłości</item>
+        <item>W trakcie</item>
+        <item>Skończone</item>
+        <item>Przerwane</item>
     </string-array>
     <string name="title_activity_log_in2">Sign in</string>
 
@@ -34,8 +40,11 @@
     <string name="studio">Studio:</string>
     <string name="date">Data produkcji:</string>
     <string name="brand">Gatunek:</string>
-    <string name="date_hint">DD/MM/RRRR</string>
+    <string name="date_hint">RRRR/MM/DD</string>
     <string name="Author">Autor:</string>
     <string name="Director">Reżyser:</string>
     <string name="date_book">Data wydania:</string>
+    <string name="dialog_remove_item_message">Czy na pewno chcesz usnąć ten wpis?</string>
+    <string name="yes">Tak</string>
+    <string name="cancel">Anuluj</string>
 </resources>
