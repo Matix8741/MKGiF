@@ -2,7 +2,9 @@ package com.metody.mkgif;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,17 +14,26 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
+
+import java.util.Date;
 
 
 public class AddingActivity extends AppCompatActivity {
+    public Button button;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +41,39 @@ public class AddingActivity extends AppCompatActivity {
         final Spinner spinner = findViewById(R.id.spinner);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.planets_array, android.R.layout.simple_spinner_item);
+                R.array.planets_array, R.layout.spinner_layout);
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final ViewFlipper vf = findViewById(R.id.vf);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0:
+                        vf.setDisplayedChild(0);
+                        break;
+                    case 1:
+                        vf.setDisplayedChild(1);
+                        break;
+                    case 2:
+                        vf.setDisplayedChild(2);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 // Apply the adapter to the spinner
+        button =  findViewById(R.id.DateButton);
+        Date currentTime = Calendar.getInstance().getTime();
+        button.setText(new SimpleDateFormat("dd-MM-yy").format(currentTime));
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
-        Button button = findViewById(R.id.addButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button addButton = findViewById(R.id.addButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TextView textView = findViewById(R.id.addTextField);
@@ -79,6 +115,7 @@ public class AddingActivity extends AppCompatActivity {
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         public void onDateSet(DatePicker view, int year, int month, int day) {
             String monthS;
             if(month<10){
@@ -87,7 +124,7 @@ public class AddingActivity extends AppCompatActivity {
             if(day<10){
             }
 
-            //((AddActivity )getActivity()).date = year+"."+monthS+"."+dayS;
+            ((AddingActivity) getActivity()).button.setText(new SimpleDateFormat("dd-MM-yy").format(new Date(year,month,day+1)));
 
         }
     }

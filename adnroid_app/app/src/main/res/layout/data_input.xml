@@ -11,7 +11,7 @@
         android:layout_centerVertical="true"
         android:text="@string/tytul"
         android:labelFor="@id/addTextField"
-        android:textSize="20sp"/>
+        android:textSize="30sp"/>
 
     <EditText
         android:layout_width="210dp"

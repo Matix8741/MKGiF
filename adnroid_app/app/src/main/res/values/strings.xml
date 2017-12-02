@@ -4,7 +4,6 @@
     <string name="filmy">Filmy</string>
     <string name="gry">Gry</string>
     <string name="książki">ksi¹¿ki</string>
-    <string name="tytu">Tytu³:</string>
     <string name="Dodaj">Dodaj</string>
     <string name="login">Login:</string>
     <string-array name="planets_array">
@@ -26,11 +25,17 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="tytuł">tytuł:</string>
     <string name="data">Data</string>
     <string name="example">example</string>
-    <string name="tytul">tytuł:</string>
+    <string name="tytul">Tytuł:</string>
     <string name="has_o">Hasło:</string>
     <string name="zaloguj">Zaloguj</string>
     <string name="rejestracja">Rejestracja</string>
+    <string name="studio">Studio:</string>
+    <string name="date">Data produkcji:</string>
+    <string name="brand">Gatunek:</string>
+    <string name="date_hint">DD/MM/RRRR</string>
+    <string name="Author">Autor:</string>
+    <string name="Director">Reżyser:</string>
+    <string name="date_book">Data wydania:</string>
 </resources>
