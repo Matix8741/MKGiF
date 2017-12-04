@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context="com.metody.mkgif.DetailActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Information"
         android:orientation="vertical">
-        <include layout="@layout/data_input"/>
+        <include layout="@layout/data_input2"
+            android:id="@+id/title"/>
         <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/vf"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
-
+            <include android:id="@+id/game" layout="@layout/game_information2" />
             <include android:id="@+id/book" layout="@layout/book_information" />
             <include android:id="@+id/movie" layout="@layout/movie_information" />
-            <include android:id="@+id/game" layout="@layout/game_information" />
 
         </ViewFlipper>
         <LinearLayout
@@ -36,19 +36,11 @@
                 android:id="@+id/spinnerStatus"
                 android:scrollbarSize="40dp"/>
         </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/DateButton"
-            android:text="@string/data"
-            android:background="@color/colorPrimaryDark"
-            android:onClick="showDatePickerDialog"
-            android:layout_gravity="center"
-            android:textSize="30sp"/>
         <RatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:isIndicator="true"
             android:id="@+id/rating"/>
         <Button
             android:layout_width="wrap_content"

@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">MKGiF</string>
-    <string name="action_settings">Settings</string>
     <string name="add">Dodaj</string>
     <string-array name="types">
-        <item>Gra</item>
         <item>Książka</item>
         <item>Film</item>
+        <item>Gra</item>
     </string-array>
     <string-array name="status">
         <item>W przyszłości</item>
@@ -16,11 +15,11 @@
     <string name="title_activity_log_in">Logowanie</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_username">Login</string>
     <string name="prompt_password">Hasło</string>
     <string name="action_sign_in">Zaloguj się lub zarejestruj</string>
     <string name="action_sign_in_short">Logowanie</string>
-    <string name="error_invalid_email">Ten adres email jest niepoprawny</string>
+    <string name="error_invalid_username">Ten login jest niepoprawny</string>
     <string name="error_invalid_password">Hasło jest za krótkie</string>
     <string name="error_incorrect_password">Niepoprawne hasło</string>
     <string name="error_field_required">Te pole jest wymagane</string>
@@ -32,7 +31,7 @@
     <string name="studio">Studio:</string>
     <string name="date">Data produkcji:</string>
     <string name="brand">Gatunek:</string>
-    <string name="date_hint">RRRR/MM/DD</string>
+    <string name="date_hint">RRRR-MM-DD</string>
     <string name="Author">Autor:</string>
     <string name="Director">Reżyser:</string>
     <string name="date_book">Data wydania:</string>
@@ -41,5 +40,5 @@
     <string name="cancel">Anuluj</string>
     <string name="action_continue">Kontynuuj bez logowania</string>
     <string name="title">Tytuł:</string>
-    <string name="books">Książki</string>
+    <string name="title_activity_datail">Datail</string>
 </resources>

@@ -7,37 +7,48 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.metody.mkgif.data.tools.Data;
+import com.metody.mkgif.data.tools.DataCategory;
 import com.metody.mkgif.data.tools.DataItem;
 import com.metody.mkgif.data.tools.DataType;
+import com.metody.mkgif.data.tools.EditItemTouchHelperCallback;
 import com.metody.mkgif.data.tools.MyAdapter;
+import com.metody.mkgif.data.tools.intefaces.OnStartDragListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnStartDragListener {
 
-    private RecyclerView mRecyclerView;
+    ItemTouchHelper mItemTouchHelper;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    List<DataItem> myDataset = new ArrayList<>();
+    List<Data> myDataSet = new ArrayList<>();
     Context context;
+    String username = "";
+    String password = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecyclerView = findViewById(R.id.recycler_view1);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_view1);
         mRecyclerView.setHasFixedSize(true);
+        Intent intent = getIntent();
+        if (intent != null) {
+            username = intent.getStringExtra("username");
+            password = intent.getStringExtra("password");
+        }
         FloatingActionButton fab = findViewById(R.id.fab);
         context = this;
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,87 +58,80 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new MyAdapter(myDataSet, this, this);
+        ItemTouchHelper.Callback callback =
+                new EditItemTouchHelperCallback((MyAdapter) mAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.setAdapter(mAdapter);
+        createRecyclerBaseView();
+        fetchData();
+    }
 
-        // specify an adapter (see also next example)
-        String[] themas = getResources().getStringArray(R.array.types);
+    private void createRecyclerBaseView(){
+
+        String[] themes = getResources().getStringArray(R.array.types);
         String[] statuses = getResources().getStringArray(R.array.status);
-        ArrayList<DataItem> dataSet = new ArrayList<>();
-        for(String thema : themas){
-            DataItem itemThema = new DataItem(thema, DataType.Thema);
-            dataSet.add(itemThema);
-            for(String status : statuses){
-                DataItem item = new DataItem(status, DataType.status);
-                dataSet.add(item);
+        for (String theme : themes) {
+            Data itemTheme = new DataCategory(theme, DataType.Theme);
+            myDataSet.add(itemTheme);
+            for (String status : statuses) {
+                Data item = new DataCategory(status, DataType.status);
+                myDataSet.add(item);
             }
         }
-        myDataset.addAll(dataSet);
-        fetchData();
-        mAdapter = new MyAdapter(myDataset, this);
-        mRecyclerView.setAdapter(mAdapter);}
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//    }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//         Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//         Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
-    //        return super.onOptionsItemSelected(item);
+    }
     public void fetchData() {
+        final Map<String, String> stringMap = new HashMap<>();
+        final Map<String, String> stringMap2 = new HashMap<>();
+        final String[] themesNotPolishCharacter = {"Ksiazka", "Gra", "Film"};
+        final String[] statusesNotPolishCharacter = {"W przyszlosci", "W trakcie", "Skonczone", "Przerwane"};
+        final String[] themes = getResources().getStringArray(R.array.types);
+        final String[] statuses = getResources().getStringArray(R.array.status);
+        for (int i = 0; i < themesNotPolishCharacter.length; i++) {
+            stringMap.put(themesNotPolishCharacter[i], themes[i]);
+        }
+        for (int i = 0; i < statusesNotPolishCharacter.length; i++) {
+            stringMap2.put(statusesNotPolishCharacter[i], statuses[i]);
+        }
+        String url = "http://192.168.0.18:8080/MkGiF/ConnectionSwervlet?Login=" + username + "&Password=" + password;
         Ion.with(context)
-                .load("http://172.16.18.44:8080/MkGiF/ConnectionSwervlet")
+                .load(url)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    //TODO zmienic wczystywanie na 100% poprawne
                     public void onCompleted(Exception e, JsonObject result) {
                         try {
                             JsonObject jsonObject = result.getAsJsonObject();
-                            JsonArray array = jsonObject.get("Filmy").getAsJsonArray();
-                            for(int i = 0; i < array.size(); i++){
-                                myDataset.add(new DataItem(array.get(i).getAsString(), DataType.item));
+                            for (String theme : themesNotPolishCharacter) {
+                                JsonObject jsonObject1 = jsonObject.getAsJsonObject(theme);
+                                if (jsonObject1 != null) {
+                                    for (String status : statusesNotPolishCharacter) {
+                                        JsonArray array = jsonObject1.getAsJsonArray(status);
+                                        for (JsonElement element : array) {
+                                            JsonObject object = element.getAsJsonObject();
+                                            DataItem item = new DataItem(object.get("Tytul").getAsString());
+                                            item.setRating(object.get("Rating").getAsFloat());
+                                            item.setDate(object.get("Data").getAsString());
+                                            item.setCreator(object.get("Tworca").getAsString());
+                                            int startIndex = myDataSet.indexOf(new DataCategory(getThemeFromString(stringMap.get(theme)), DataType.Theme));
+                                            int endIndex = myDataSet.size();
+                                            int index = myDataSet.subList(startIndex, endIndex).indexOf(new DataCategory(stringMap2.get(status), DataType.status)) + 1;
+                                            myDataSet.add(index, item);
+                                        }
+                                    }
+                                }
                             }
-//                            JsonObject gry = (JsonObject) jsonObject.get("gry");
-//                            JsonArray companyList = gry.getAsJsonArray("skonczone");
-//                            Log.d(companyList.toString(), "heheh");
-//                            for (int i = 0; i < companyList.size(); i++) {
-//                                myDataset.add(new DataItem(((JsonObject) companyList.get(i)).get("tytul").getAsString(), DataType.item));
-//                            }
                             mAdapter.notifyDataSetChanged();
-
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
                     }
                 });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String s = data.getStringExtra("text");
@@ -135,25 +139,32 @@ public class MainActivity extends AppCompatActivity {
         String date = data.getStringExtra("date");
         Float rating = data.getFloatExtra("rating", -1);
         String status = data.getStringExtra("status");
-        DataItem item = new DataItem(s, DataType.item);
+        DataItem item = new DataItem(s);
         item.setDate(date);
         item.setRating(rating);
-        Log.d(getThemaFromString(a), status);
-        int startIndex =myDataset.indexOf(new DataItem(getThemaFromString(a), DataType.Thema));
-        int endIndex = myDataset.size();
-        int index = myDataset.subList(startIndex, endIndex).indexOf(new DataItem(status, DataType.status))+1;
-        Log.d(String.valueOf(index), String.valueOf(startIndex));
-        Log.d("jak: ", myDataset.subList(startIndex, endIndex).get(0).getContent());
-        myDataset.add(index+startIndex,item);
+        int startIndex = myDataSet.indexOf(new DataCategory(getThemeFromString(a), DataType.Theme));
+        int endIndex = myDataSet.size();
+        int index = myDataSet.subList(startIndex, endIndex).indexOf(new DataCategory(status, DataType.status)) + 1;
+        myDataSet.add(index + startIndex, item);
         mAdapter.notifyDataSetChanged();
     }
-    String getThemaFromString(String source){
-        for(String thema : getResources().getStringArray(R.array.types)){
-            if(source.contains(thema)){
-                return thema;
+
+    String getThemeFromString(String source) {
+        for (String theme : getResources().getStringArray(R.array.types)) {
+            if (source.contains(theme)) {
+                return theme;
             }
         }
         return "";
     }
 
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }
