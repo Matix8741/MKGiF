@@ -1,5 +1,7 @@
 package com.metody.mkgif.data.tools;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
@@ -28,10 +30,11 @@ public class EditItemTouchHelperCallback extends ItemTouchHelper.Callback {
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                           RecyclerView.ViewHolder target) {
-        mAdapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+        mAdapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition(), ((MyAdapter.ViewHolder)viewHolder).getDateTextView());
         return true;
     }
 
