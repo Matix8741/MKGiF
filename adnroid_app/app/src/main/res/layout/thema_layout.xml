@@ -2,7 +2,7 @@
 <TextView android:id="@+id/thirdSection"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#123321"
+    android:background="#ffbf80"
     android:text="@string/example"
     android:textSize="40sp"
     xmlns:android="http://schemas.android.com/apk/res/android" />

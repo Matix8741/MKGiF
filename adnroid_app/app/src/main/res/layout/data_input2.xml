@@ -20,5 +20,6 @@
         android:layout_marginStart="16dp"
         android:layout_toEndOf="@+id/textView"
         android:id="@+id/addTextField"
+        android:textColor="#1a1100"
         android:textSize="30sp"/>
 </RelativeLayout>

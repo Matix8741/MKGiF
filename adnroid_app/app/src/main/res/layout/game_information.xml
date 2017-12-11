@@ -32,11 +32,11 @@
                 android:id="@+id/data"
                 android:text="@string/date"
                 android:textSize="30sp"
-                android:labelFor="@id/DateInput"/>
+                android:labelFor="@id/Game_DateInput"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/DateInput"
+                android:id="@+id/Game_DateInput"
                 android:inputType="datetime"
                 android:hint="@string/date_hint"/>
         </LinearLayout>
@@ -50,11 +50,11 @@
                 android:id="@+id/brand"
                 android:text="@string/brand"
                 android:textSize="30sp"
-                android:labelFor="@id/BrandInput"/>
+                android:labelFor="@id/Game_BrandInput"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/BrandInput"
+                android:id="@+id/Game_BrandInput"
                 android:inputType="textAutoComplete"/>
         </LinearLayout>
     </LinearLayout>

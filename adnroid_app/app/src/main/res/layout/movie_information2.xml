@@ -13,15 +13,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/studio"
-                android:text="@string/studio"
+                android:id="@+id/Director"
+                android:text="@string/Director"
                 android:textSize="30sp"
-                android:labelFor="@id/StudioInput"/>
+                android:labelFor="@id/DirectorInput"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/DirectorInput"
                 android:textColor="#1a1100"
-                android:id="@+id/StudioInput"
                 android:textSize="30sp"/>
         </LinearLayout>
         <LinearLayout
@@ -33,12 +33,12 @@
                 android:id="@+id/data"
                 android:text="@string/date"
                 android:textSize="30sp"
-                android:labelFor="@id/Game_DateInput"/>
+                android:labelFor="@id/Movie_DateInput"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/Movie_DateInput"
                 android:textColor="#1a1100"
-                android:id="@+id/Game_DateInput"
                 android:textSize="30sp"/>
         </LinearLayout>
 
@@ -51,11 +51,11 @@
                 android:id="@+id/brand"
                 android:text="@string/brand"
                 android:textSize="30sp"
-                android:labelFor="@id/Game_BrandInput"/>
+                android:labelFor="@id/Movie_BrandInput"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/Game_BrandInput"
+                android:id="@+id/Movie_BrandInput"
                 android:textColor="#1a1100"
                 android:textSize="30sp"/>
         </LinearLayout>

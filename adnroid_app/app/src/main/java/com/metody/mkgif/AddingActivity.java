@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,18 +46,30 @@ public class AddingActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.dropdown_spinner_layout);
         adapterStatus.setDropDownViewResource(R.layout.dropdown_spinner_layout);
         final ViewFlipper vf = findViewById(R.id.vf);
+        final EditText[] creator = {null};
+        final EditText[] createDate = {null};
+        final EditText[] brand = {null};
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     case 0:
                         vf.setDisplayedChild(0);
+                        creator[0] = findViewById(R.id.AuthorInput);
+                        createDate[0] = findViewById(R.id.Book_DateInput);
+                        brand[0] = findViewById(R.id.Book_BrandInput);
                         break;
                     case 1:
                         vf.setDisplayedChild(1);
+                        creator[0] = findViewById(R.id.DirectorInput);
+                        createDate[0] = findViewById(R.id.Movie_DateInput);
+                        brand[0] = findViewById(R.id.Movie_BrandInput);
                         break;
                     case 2:
                         vf.setDisplayedChild(2);
+                        creator[0] = findViewById(R.id.StudioInput);
+                        createDate[0] = findViewById(R.id.Game_DateInput);
+                        brand[0] = findViewById(R.id.Game_BrandInput);
                         break;
                 }
             }
@@ -73,11 +86,11 @@ public class AddingActivity extends AppCompatActivity {
         spinner.setSelection(0);
         spinnerStatus.setAdapter(adapterStatus);
         spinnerStatus.setSelection(0);
-        final RatingBar ratingBar = findViewById(R.id.rating);
         Button addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RatingBar ratingBar = findViewById(R.id.rating);
                 TextView textView = findViewById(R.id.addTextField);
                 Intent intent = new Intent(getApplicationContext(), AddingActivity.class);
                 intent.putExtra("text", textView.getText().toString());
@@ -85,6 +98,9 @@ public class AddingActivity extends AppCompatActivity {
                 intent.putExtra("date", button.getText());
                 intent.putExtra("rating", ratingBar.getRating());
                 intent.putExtra("status", (String) spinnerStatus.getSelectedItem());
+                intent.putExtra("creator", creator[0].getText().toString());
+                intent.putExtra("createDate", createDate[0].getText().toString());
+                intent.putExtra("brand", brand[0].getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();
             }

@@ -19,6 +19,7 @@ import com.koushikdutta.ion.Ion;
 import com.metody.mkgif.data.tools.Data;
 import com.metody.mkgif.data.tools.DataCategory;
 import com.metody.mkgif.data.tools.DataItem;
+import com.metody.mkgif.data.tools.DataStatus;
 import com.metody.mkgif.data.tools.DataType;
 import com.metody.mkgif.data.tools.EditItemTouchHelperCallback;
 import com.metody.mkgif.data.tools.MyAdapter;
@@ -113,9 +114,11 @@ public class MainActivity extends AppCompatActivity implements OnStartDragListen
                                         for (JsonElement element : array) {
                                             JsonObject object = element.getAsJsonObject();
                                             DataItem item = new DataItem(object.get("Tytul").getAsString());
+                                            item.setStatus(DataStatus.getStatus(status));
                                             item.setRating(object.get("Rating").getAsFloat());
                                             item.setDate(object.get("Data").getAsString());
                                             item.setCreator(object.get("Tworca").getAsString());
+                                            item.setAvgRating(object.get("Rating").getAsFloat());
                                             int startIndex = myDataSet.indexOf(new DataCategory(getThemeFromString(stringMap.get(theme)), DataType.Theme));
                                             int endIndex = myDataSet.size();
                                             int index = myDataSet.subList(startIndex, endIndex).indexOf(new DataCategory(stringMap2.get(status), DataType.status)) + 1;
@@ -139,9 +142,16 @@ public class MainActivity extends AppCompatActivity implements OnStartDragListen
         String date = data.getStringExtra("date");
         Float rating = data.getFloatExtra("rating", -1);
         String status = data.getStringExtra("status");
+        String creator = data.getStringExtra("creator");
+        String createDate = data.getStringExtra("createDate");
+        String brand = data.getStringExtra("brand");
         DataItem item = new DataItem(s);
+        item.setStatus(DataStatus.getStatus(a));
         item.setDate(date);
         item.setRating(rating);
+        item.setCreator(creator);
+        item.setCreateDate(createDate);
+        item.setBrand(brand);
         int startIndex = myDataSet.indexOf(new DataCategory(getThemeFromString(a), DataType.Theme));
         int endIndex = myDataSet.size();
         int index = myDataSet.subList(startIndex, endIndex).indexOf(new DataCategory(status, DataType.status)) + 1;

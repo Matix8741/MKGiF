@@ -4,13 +4,28 @@ public class DataItem extends Data {
 
     private Float rating = (float) 0;
 
+    private DataStatus status;
+
+    Float getAvgRating() {
+        if(avgRating == -1)
+            return rating;
+        else
+            return avgRating;
+    }
+
+    public void setAvgRating(Float avgRating) {
+        this.avgRating = avgRating;
+    }
+
+    private Float avgRating = (float) -1;
+
     private String date = "";
 
-    private String creator = "";
+    private String creator = "example";
 
-    private String createDate = "";
+    private String createDate = "example";
 
-    private String brand = "";
+    private String brand = "example";
 
     public DataItem(String content) {
         super(content, DataType.item);
@@ -32,7 +47,7 @@ public class DataItem extends Data {
         this.date = date;
     }
 
-    public String getCreator() {
+    String getCreator() {
         return creator;
     }
 
@@ -40,7 +55,7 @@ public class DataItem extends Data {
         this.creator = creator;
     }
 
-    public String getCreateDate() {
+    String getCreateDate() {
         return createDate;
     }
 
@@ -54,5 +69,13 @@ public class DataItem extends Data {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    DataStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(DataStatus status) {
+        this.status = status;
     }
 }

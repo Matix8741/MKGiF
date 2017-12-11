@@ -96,6 +96,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
                     intent.putExtra("text", mainText.getText());
                     intent.putExtra("rating", rating.getText());
                     intent.putExtra("date", date.getText());
+                    intent.putExtra("creator", ((DataItem) mDataSet.get(getAdapterPosition())).getCreator());
+                    intent.putExtra("createDate", ((DataItem) mDataSet.get(getAdapterPosition())).getCreateDate());
+                    intent.putExtra("brand", ((DataItem) mDataSet.get(getAdapterPosition())).getBrand());
+                    intent.putExtra("type", ((DataItem) mDataSet.get(getAdapterPosition())).getStatus());
                     myAdapter.mainActivity.startActivity(intent);
                 }
             });
@@ -175,7 +179,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
         Data item = mDataSet.get(position);
         holder.mainText.setText(item.getContent());
         if (item.getDataTyp().equals(DataType.item)) {
-            holder.rating.setText(String.valueOf(((DataItem) mDataSet.get(position)).getRating()));
+            holder.rating.setText(String.valueOf(((DataItem) mDataSet.get(position)).getAvgRating()));
             holder.date.setText(((DataItem) mDataSet.get(position)).getDate());
 
             holder.inflate.setOnTouchListener(new View.OnTouchListener() {

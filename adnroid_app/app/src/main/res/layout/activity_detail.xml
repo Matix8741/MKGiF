@@ -16,38 +16,15 @@
             android:layout_height="wrap_content" >
 
             <include android:id="@+id/game" layout="@layout/game_information2" />
-            <include android:id="@+id/book" layout="@layout/book_information" />
-            <include android:id="@+id/movie" layout="@layout/movie_information" />
+            <include android:id="@+id/book" layout="@layout/book_information2" />
+            <include android:id="@+id/movie" layout="@layout/movie_information2" />
 
         </ViewFlipper>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner"
-                android:scrollbarSize="40dp"/>
-
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinnerStatus"
-                android:scrollbarSize="40dp"/>
-        </LinearLayout>
         <RatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
             android:isIndicator="true"
             android:id="@+id/rating"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:text="@string/add"
-            android:textSize="30sp"
-            android:id="@+id/addButton"/>
     </LinearLayout>
 </ScrollView>

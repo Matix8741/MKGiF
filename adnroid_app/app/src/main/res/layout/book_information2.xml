@@ -13,15 +13,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/studio"
-                android:text="@string/studio"
+                android:id="@+id/author"
+                android:text="@string/Author"
                 android:textSize="30sp"
-                android:labelFor="@id/StudioInput"/>
+                android:labelFor="@id/AuthorInput"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/AuthorInput"
                 android:textColor="#1a1100"
-                android:id="@+id/StudioInput"
                 android:textSize="30sp"/>
         </LinearLayout>
         <LinearLayout
@@ -31,14 +31,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/data"
-                android:text="@string/date"
+                android:text="@string/date_book"
                 android:textSize="30sp"
-                android:labelFor="@id/Game_DateInput"/>
+                android:labelFor="@id/Book_DateInput"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/Book_DateInput"
                 android:textColor="#1a1100"
-                android:id="@+id/Game_DateInput"
                 android:textSize="30sp"/>
         </LinearLayout>
 
@@ -51,11 +51,11 @@
                 android:id="@+id/brand"
                 android:text="@string/brand"
                 android:textSize="30sp"
-                android:labelFor="@id/Game_BrandInput"/>
+                android:labelFor="@id/Book_BrandInput"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/Game_BrandInput"
+                android:id="@+id/Book_BrandInput"
                 android:textColor="#1a1100"
                 android:textSize="30sp"/>
         </LinearLayout>
